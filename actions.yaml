@@ -233,3 +233,34 @@ set-noout:
   description: Set ceph noout across the cluster.
 unset-noout:
   description: Unset ceph noout across the cluster.
+benchmark-cluster:
+  description: Benchmark a storage cluster using `rados bench`.
+  params:
+    cleanup:
+      type: boolean
+      default: false
+      description: Clean up after a write benchmark.
+    mode:
+      type: string
+      enum: [write, seq, rand]
+      description: |
+        Mode of benchmark to perform.  Either write, sequential read (seq), or
+        random read (rand).  To run a read benchmark, first run a write
+        benchmark.
+    pool:
+      type: string
+      description: Pool to use for benchmarking.
+    seconds:
+      type: integer
+      default: 10
+      description: Duration to perform benchmark for, in seconds.
+    size:
+      type: integer
+      default: 4
+      description: The size of objects used during write benchmarks, in MB.
+    threads:
+      type: integer
+      default: 16
+      description: The number of concurrent I/O operations.
+  required: [pool]
+  additionalProperties: false
